@@ -1,4 +1,4 @@
-package com.example.bookpub;
+package com.example.bookpub.config;
 
 import com.example.bookpub.formatter.BookFormatter;
 import com.example.bookpub.repository.BookRepository;

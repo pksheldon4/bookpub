@@ -1,5 +1,6 @@
 package com.example.bookpub;
 
+import com.example.bookpub.config.StartupRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;

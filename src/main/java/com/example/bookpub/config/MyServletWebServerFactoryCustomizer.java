@@ -1,4 +1,4 @@
-package com.example.bookpub;
+package com.example.bookpub.config;
 
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;

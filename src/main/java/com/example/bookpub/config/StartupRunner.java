@@ -1,4 +1,4 @@
-package com.example.bookpub;
+package com.example.bookpub.config;
 
 import com.example.bookpub.entity.Author;
 import com.example.bookpub.entity.Book;
@@ -13,7 +13,6 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.util.Assert;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
 public class StartupRunner implements CommandLineRunner {
     protected final Log logger = LogFactory.getLog(getClass());
