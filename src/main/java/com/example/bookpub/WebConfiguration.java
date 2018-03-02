@@ -2,7 +2,6 @@ package com.example.bookpub;
 
 import com.example.bookpub.formatter.BookFormatter;
 import com.example.bookpub.repository.BookRepository;
-import org.apache.catalina.filters.RemoteIpFilter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +28,11 @@ public class WebConfiguration implements WebMvcConfigurer {
     @Autowired
     private BookRepository bookRepository;
 
-    @Bean
-    public RemoteIpFilter remoteIpFilter() {
-        return new RemoteIpFilter();
-    }
+    //Tomcat specific
+//    @Bean
+//    public RemoteIpFilter remoteIpFilter() {
+//        return new RemoteIpFilter();
+//    }
 
     @Bean
     public LocaleChangeInterceptor localeChangeInterceptor() {
