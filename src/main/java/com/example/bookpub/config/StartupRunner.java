@@ -41,14 +41,13 @@ public class StartupRunner implements CommandLineRunner {
         reviewerRepository.save(reviewer);
         book.getReviewers().add(reviewer);
         bookRepository.save(book);
-        logger.info("Number of books: " + bookRepository.count());
+        logger.debug("Number of books: " + bookRepository.count());
         Book savedBook = bookRepository.findBookByIsbn(isbn);
         Assert.notNull(savedBook, "Saved book should not be null.");
         Assert.notNull(savedBook.getAuthor(), "Saved book should have an Author");
         Assert.notNull(savedBook.getPublisher(), "Saved book should have a Publisher");
-        logger.info("Saved Book publisher = " + savedBook.getPublisher().getName());
-
-        logger.info("Saved Book reviewers = " + savedBook.getReviewers().size());
+        logger.debug("Saved Book publisher = " + savedBook.getPublisher().getName());
+        logger.debug("Saved Book reviewers = " + savedBook.getReviewers().size());
     }
 
 

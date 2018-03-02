@@ -10,6 +10,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 public class BookpubApplication {
 
+//	protected final Log logger = LogFactory.getLog(getClass());
+
 	public static void main(String[] args) {
 		SpringApplication.run(BookpubApplication.class, args);
 	}
@@ -18,4 +20,14 @@ public class BookpubApplication {
     public StartupRunner schedulerRunner() {
 	    return new StartupRunner();
     }
+
+//	@Bean
+//	public DbCountRunner dbCountRunner(Collection<CrudRepository> repositories) {
+//		return new DbCountRunner(repositories) {
+//			@Override
+//			public void run(String... args) throws Exception {
+//				logger.info("Manually Declared DbCountRunner");
+//			}
+//		};
+//	}
 }

@@ -6,7 +6,11 @@ spring:
 
 logging:
   level:
-    root: info
-    org.hibernate: info
-    org.springframework: info
-    org.springframework.data: info
+    root: warn
+    com.example: info
+#    org.hibernate: warn
+#    org.springframework: info
+#    org.springframework.boot.web: warn
+#    org.springframework.web: warn
+#    org.springframework.data: warn
+
