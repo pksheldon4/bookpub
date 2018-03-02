@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Set;
 
 @RestController
@@ -57,7 +58,12 @@ public class BookController {
         return book.getAuthor();
     }
 
-
+    @RequestMapping(value = "/session", method = RequestMethod.GET)
+    public String getSessionId(HttpServletRequest request) {
+        String result = request.getSession().getId();
+        logger.info("getSessionId() - " + result);
+        return result;
+    }
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {

@@ -6,15 +6,19 @@ import org.apache.catalina.filters.RemoteIpFilter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
+import java.time.Duration;
 import java.util.List;
 
 @Configuration
@@ -40,6 +44,13 @@ public class WebConfiguration implements WebMvcConfigurer {
         return new ByteArrayHttpMessageConverter();
     }
 
+    @Bean
+    public MyServletWebServerFactoryCustomizer myServletWebServerFactoryCustomizer(
+            ServerProperties serverProperties) {
+        serverProperties.getServlet().getSession().setTimeout(Duration.ofMinutes(1));
+        return new MyServletWebServerFactoryCustomizer(serverProperties);
+    }
+
     @Override
     public void addFormatters(FormatterRegistry registry) {
         logger.info("addFormatter: BookFormatter");
@@ -52,10 +63,24 @@ public class WebConfiguration implements WebMvcConfigurer {
         converters.add(new ByteArrayHttpMessageConverter());
     }
 
-
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
 
         registry.addInterceptor(localeChangeInterceptor());
     }
+
+    @Override
+    public void configurePathMatch(PathMatchConfigurer configurer) {
+
+        configurer.setUseSuffixPatternMatch(false);
+        configurer.setUseTrailingSlashMatch(true);
+    }
+
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/internal/**").addResourceLocations("classpath:/");
+
+    }
+
 }
