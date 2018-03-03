@@ -24,7 +24,6 @@ public class BookFormatter implements Formatter<Book> {
 
         logger.info("BootFormatter.parse(" + bookIdentifier + ")");
         Book book = bookRepository.findBookByIsbn(bookIdentifier);
-        logger.info("Is book == null ? " + book == null ? "YES" : "NO");
         if (book == null) {
             try {
                 Long id = Long.valueOf(bookIdentifier);

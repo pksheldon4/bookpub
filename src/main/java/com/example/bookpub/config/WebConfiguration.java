@@ -16,8 +16,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.format.FormatterRegistry;
-import org.springframework.http.converter.ByteArrayHttpMessageConverter;
-import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -26,7 +24,6 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
 import java.io.File;
 import java.time.Duration;
-import java.util.List;
 
 @Configuration
 @PropertySource("classpath:/tomcat.https.properties")
@@ -48,10 +45,10 @@ public class WebConfiguration implements WebMvcConfigurer {
         return new LocaleChangeInterceptor();
     }
 
-    @Bean
-    public ByteArrayHttpMessageConverter byteArrayHttpMessageConverter() {
-        return new ByteArrayHttpMessageConverter();
-    }
+//    @Bean
+//    public ByteArrayHttpMessageConverter byteArrayHttpMessageConverter() {
+//        return new ByteArrayHttpMessageConverter();
+//    }
 
     @Bean
     public ServletWebServerFactory servletContainer
@@ -68,8 +65,7 @@ public class WebConfiguration implements WebMvcConfigurer {
     }
 
     @Bean
-    public MyServletWebServerFactoryCustomizer myServletWebServerFactoryCustomizer(
-            ServerProperties serverProperties) {
+    public MyServletWebServerFactoryCustomizer myServletWebServerFactoryCustomizer(ServerProperties serverProperties) {
         serverProperties.getServlet().getSession().setTimeout(Duration.ofMinutes(1));
         return new MyServletWebServerFactoryCustomizer(serverProperties);
     }
@@ -80,11 +76,12 @@ public class WebConfiguration implements WebMvcConfigurer {
         registry.addFormatter(new BookFormatter(bookRepository));
     }
 
-    @Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        converters.clear();
-        converters.add(new ByteArrayHttpMessageConverter());
-    }
+//    @Override
+//    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+////        converters.clear();
+//        converters.add(byteArrayHttpMessageConverter());
+//        converters.add(mappingJackson2HttpMessageConverter());
+//    }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

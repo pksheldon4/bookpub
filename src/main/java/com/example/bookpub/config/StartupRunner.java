@@ -37,7 +37,7 @@ public class StartupRunner implements CommandLineRunner {
         author = authorRepository.save(author);
         Publisher publisher = new Publisher("Packt");
         publisher = publisherRepository.save(publisher);
-        final String isbn = "978-1-78528-415-1.1";
+        final String isbn = "978-1-78528-415-1";
         Book book = new Book(isbn, "Spring Boot Recipes 2.0", author, publisher);
         bookRepository.save(book);
         Reviewer reviewer = new Reviewer("Preston", "Sheldon");

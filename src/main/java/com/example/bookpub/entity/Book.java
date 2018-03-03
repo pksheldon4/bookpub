@@ -1,7 +1,5 @@
 package com.example.bookpub.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,6 +12,7 @@ import java.util.Set;
 
 @Entity
 public class Book {
+
     @Id
     @GeneratedValue
     private Long id;
@@ -22,11 +21,11 @@ public class Book {
     private String description;
 
     @ManyToOne
-    @JsonManagedReference
+//    @JsonManagedReference
     private Author author;
 
     @ManyToOne
-    @JsonManagedReference
+//    @JsonManagedReference
     private Publisher publisher;
 
     @ManyToMany(cascade = CascadeType.ALL,fetch= FetchType.EAGER)

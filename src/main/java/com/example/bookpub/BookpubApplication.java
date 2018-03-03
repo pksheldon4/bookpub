@@ -23,13 +23,5 @@ public class BookpubApplication {
 	    return new StartupRunner();
     }
 
-//	@Bean
-//	public DbCountRunner dbCountRunner(Collection<CrudRepository> repositories) {
-//		return new DbCountRunner(repositories) {
-//			@Override
-//			public void run(String... args) throws Exception {
-//				logger.info("Manually Declared DbCountRunner");
-//			}
-//		};
-//	}
+
 }
