@@ -12,11 +12,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
+
+import javax.sql.DataSource;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -24,6 +28,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@Transactional
+@Sql(scripts = "classpath:/test-data.sql")
 public class BookpubApplicationTests {
 
 	@Autowired
@@ -33,19 +39,35 @@ public class BookpubApplicationTests {
 	@Autowired
 	private BookRepository repository;
 
-	@LocalServerPort
+    @Autowired
+    private DataSource ds;
+
+    @LocalServerPort
 	private int port;
 
 	private MockMvc mockMvc;
+
+	private static boolean loadDataFixtures = true;
 
 	@Before
 	public void setupMockMvc() {
 		mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
 	}
 
-	@Test
+//    @Before
+//    public void loadDataFixtures() {
+//        if (loadDataFixtures) {
+//            ResourceDatabasePopulator populator =
+//                    new ResourceDatabasePopulator(context.getResource("classpath:/test-data.sql"));
+//            DatabasePopulatorUtils.execute(populator, ds);
+//            loadDataFixtures = false;
+//        }
+//    }
+
+
+    @Test
 	public void contextLoads() {
-		Assert.assertEquals(1, repository.count());
+		Assert.assertEquals(3, repository.count());
 	}
 
 	@Test
