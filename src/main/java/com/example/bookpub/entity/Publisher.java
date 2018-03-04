@@ -1,8 +1,12 @@
 package com.example.bookpub.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.List;
 
 @Entity
 public class Publisher {
@@ -12,9 +16,9 @@ public class Publisher {
     private Long id;
     private String name;
 
-//    @OneToMany(mappedBy = "publisher")
-//    @JsonBackReference
-//    private List<Book> books;
+    @OneToMany(mappedBy = "publisher")
+    @JsonBackReference
+    private List<Book> books;
 
     protected Publisher() {
     }
@@ -38,12 +42,12 @@ public class Publisher {
     public void setName(String name) {
         this.name = name;
     }
-//
-//    public List<Book> getBooks() {
-//        return books;
-//    }
-//
-//    public void setBooks(List<Book> books) {
-//        this.books = books;
-//    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
+    }
 }

@@ -3,9 +3,11 @@ package com.example.bookpub.controller;
 import com.example.bookpub.editor.IsbnEditor;
 import com.example.bookpub.entity.Author;
 import com.example.bookpub.entity.Book;
+import com.example.bookpub.entity.Publisher;
 import com.example.bookpub.entity.Reviewer;
 import com.example.bookpub.model.Isbn;
 import com.example.bookpub.repository.BookRepository;
+import com.example.bookpub.repository.PublisherRepository;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @RestController
@@ -28,6 +32,9 @@ public class BookController {
 
     @Autowired
     private BookRepository bookRepository;
+
+    @Autowired
+    private PublisherRepository publisherRepository;
 
 
     @RequestMapping(value = "", method = RequestMethod.GET)
@@ -56,6 +63,14 @@ public class BookController {
     public Author getAuthor(@PathVariable("isbn") Book book) {
         logger.info("Find reviewers for Book with ISBN: " + book.getIsbn());
         return book.getAuthor();
+    }
+
+    @RequestMapping(value = "/publisher/{id}", method = RequestMethod.GET)
+    public List<Book> getBooksByPublisher(@PathVariable("id") Long id) {
+        Optional<Publisher> publisher = publisherRepository.findById(id);
+        Assert.notNull(publisher, "Publisher should not be null");
+        Assert.isTrue(publisher.isPresent(), "Publisher should be present");
+        return publisher.get().getBooks();
     }
 
     @RequestMapping(value = "/session", method = RequestMethod.GET)

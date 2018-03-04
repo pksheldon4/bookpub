@@ -10,7 +10,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -19,8 +18,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
-
-import javax.sql.DataSource;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -39,31 +36,13 @@ public class BookpubApplicationTests {
 	@Autowired
 	private BookRepository repository;
 
-    @Autowired
-    private DataSource ds;
-
-    @LocalServerPort
-	private int port;
-
 	private MockMvc mockMvc;
 
-	private static boolean loadDataFixtures = true;
 
 	@Before
 	public void setupMockMvc() {
 		mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
 	}
-
-//    @Before
-//    public void loadDataFixtures() {
-//        if (loadDataFixtures) {
-//            ResourceDatabasePopulator populator =
-//                    new ResourceDatabasePopulator(context.getResource("classpath:/test-data.sql"));
-//            DatabasePopulatorUtils.execute(populator, ds);
-//            loadDataFixtures = false;
-//        }
-//    }
-
 
     @Test
 	public void contextLoads() {
@@ -88,14 +67,14 @@ public class BookpubApplicationTests {
                 andExpect(jsonPath("$.title").value("Spring Boot Recipes 2.0"));
     }
 
-//	@Test
-//	public void webappPublisherApi() throws Exception {
-//		mockMvc.perform(MockMvcRequestBuilders.get("/publishers/1")).
-//				andExpect(status().isOk()).andExpect(content().
-//				contentType(MediaType.parseMediaType
-//						("application/hal+json;charset=UTF-8"))).
-//				andExpect(content().
-//						string(CoreMatchers.containsString("Packt"))).
-//				andExpect(jsonPath("$.name").value("Packt"));
-//	}
+	@Test
+	public void webappPublisherApi() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.get("/publishers/1")).
+				andExpect(status().isOk()).andExpect(content().
+				contentType(MediaType.parseMediaType
+						("application/hal+json;charset=UTF-8"))).
+				andExpect(content().
+						string(CoreMatchers.containsString("Packt"))).
+				andExpect(jsonPath("$.name").value("Packt"));
+	}
 }

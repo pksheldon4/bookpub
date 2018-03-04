@@ -4,6 +4,7 @@ import com.example.bookpub.entity.Author;
 import com.example.bookpub.entity.Book;
 import com.example.bookpub.entity.Publisher;
 import com.example.bookpub.repository.BookRepository;
+import com.example.bookpub.repository.PublisherRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,9 @@ public class WebMvcBookControllerTests {
 
     @MockBean
     private BookRepository repository;
+
+    @MockBean
+    private PublisherRepository publisherRepository;
 
     @Test
     public void webappBookApi() throws Exception {
